@@ -4341,10 +4341,6 @@ function _Browser_load(url)
 		}
 	}));
 }
-var author$project$Example$Model = F2(
-	function (base, interval) {
-		return {base: base, interval: interval};
-	});
 var elm$core$Basics$False = {$: 'False'};
 var elm$core$Basics$True = {$: 'True'};
 var elm$core$Result$isOk = function (result) {
@@ -4822,28 +4818,53 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 	});
 var elm$core$Platform$Cmd$batch = _Platform_batch;
 var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
-var rl_king$elm_modular_scale$ModularScale$PerfectFifth = {$: 'PerfectFifth'};
+var rl_king$elm_modular_scale$ModularScale$PerfectFourth = {$: 'PerfectFourth'};
 var author$project$Example$init = function (_n0) {
 	return _Utils_Tuple2(
-		A2(author$project$Example$Model, '1, 1.2', rl_king$elm_modular_scale$ModularScale$PerfectFifth),
+		{base: '1, 1.25', h1: 5, h2: 3, interval: rl_king$elm_modular_scale$ModularScale$PerfectFourth, p: 1},
 		elm$core$Platform$Cmd$none);
 };
 var author$project$Example$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'OnBaseInput') {
-			var input = msg.a;
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{base: input}),
-				elm$core$Platform$Cmd$none);
-		} else {
-			var interval = msg.a;
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{interval: interval}),
-				elm$core$Platform$Cmd$none);
+		switch (msg.$) {
+			case 'OnBaseInput':
+				var input = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{base: input}),
+					elm$core$Platform$Cmd$none);
+			case 'SelectInterval':
+				var interval = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{interval: interval}),
+					elm$core$Platform$Cmd$none);
+			default:
+				switch (msg.a.$) {
+					case 'H1':
+						var input = msg.a.a;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{h1: input}),
+							elm$core$Platform$Cmd$none);
+					case 'H2':
+						var input = msg.a.a;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{h2: input}),
+							elm$core$Platform$Cmd$none);
+					default:
+						var input = msg.a.a;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{p: input}),
+							elm$core$Platform$Cmd$none);
+				}
 		}
 	});
 var author$project$Example$OnBaseInput = function (a) {
@@ -4867,7 +4888,7 @@ var rl_king$elm_modular_scale$ModularScale$MinorSeventh = {$: 'MinorSeventh'};
 var rl_king$elm_modular_scale$ModularScale$MinorSixth = {$: 'MinorSixth'};
 var rl_king$elm_modular_scale$ModularScale$MinorThird = {$: 'MinorThird'};
 var rl_king$elm_modular_scale$ModularScale$Octave = {$: 'Octave'};
-var rl_king$elm_modular_scale$ModularScale$PerfectFourth = {$: 'PerfectFourth'};
+var rl_king$elm_modular_scale$ModularScale$PerfectFifth = {$: 'PerfectFifth'};
 var rl_king$elm_modular_scale$ModularScale$Ratio = function (a) {
 	return {$: 'Ratio', a: a};
 };
@@ -4912,26 +4933,7 @@ var author$project$Example$intervalFromValue = function (interval) {
 	}
 };
 var author$project$Example$intervalList = _List_fromArray(
-	[
-		rl_king$elm_modular_scale$ModularScale$MinorSecond,
-		rl_king$elm_modular_scale$ModularScale$MajorSecond,
-		rl_king$elm_modular_scale$ModularScale$MinorThird,
-		rl_king$elm_modular_scale$ModularScale$MajorThird,
-		rl_king$elm_modular_scale$ModularScale$PerfectFourth,
-		rl_king$elm_modular_scale$ModularScale$AugFourth,
-		rl_king$elm_modular_scale$ModularScale$PerfectFifth,
-		rl_king$elm_modular_scale$ModularScale$MinorSixth,
-		rl_king$elm_modular_scale$ModularScale$GoldenSection,
-		rl_king$elm_modular_scale$ModularScale$MajorSixth,
-		rl_king$elm_modular_scale$ModularScale$MinorSeventh,
-		rl_king$elm_modular_scale$ModularScale$MajorSeventh,
-		rl_king$elm_modular_scale$ModularScale$Octave,
-		rl_king$elm_modular_scale$ModularScale$MajorTenth,
-		rl_king$elm_modular_scale$ModularScale$MajorEleventh,
-		rl_king$elm_modular_scale$ModularScale$MajorTwelfth,
-		rl_king$elm_modular_scale$ModularScale$DoubleOctave,
-		rl_king$elm_modular_scale$ModularScale$Ratio(0)
-	]);
+	[rl_king$elm_modular_scale$ModularScale$MinorSecond, rl_king$elm_modular_scale$ModularScale$MajorSecond, rl_king$elm_modular_scale$ModularScale$MinorThird, rl_king$elm_modular_scale$ModularScale$MajorThird, rl_king$elm_modular_scale$ModularScale$PerfectFourth, rl_king$elm_modular_scale$ModularScale$AugFourth, rl_king$elm_modular_scale$ModularScale$PerfectFifth, rl_king$elm_modular_scale$ModularScale$MinorSixth, rl_king$elm_modular_scale$ModularScale$GoldenSection, rl_king$elm_modular_scale$ModularScale$MajorSixth, rl_king$elm_modular_scale$ModularScale$MinorSeventh, rl_king$elm_modular_scale$ModularScale$MajorSeventh, rl_king$elm_modular_scale$ModularScale$Octave, rl_king$elm_modular_scale$ModularScale$MajorTenth, rl_king$elm_modular_scale$ModularScale$MajorEleventh, rl_king$elm_modular_scale$ModularScale$MajorTwelfth, rl_king$elm_modular_scale$ModularScale$DoubleOctave]);
 var author$project$Example$intervalToString = function (interval) {
 	switch (interval.$) {
 		case 'MinorSecond':
@@ -5100,6 +5102,7 @@ var elm$core$List$map = F2(
 	});
 var elm$html$Html$div = _VirtualDom_node('div');
 var elm$html$Html$input = _VirtualDom_node('input');
+var elm$html$Html$label = _VirtualDom_node('label');
 var elm$html$Html$select = _VirtualDom_node('select');
 var elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var elm$html$Html$Attributes$style = elm$virtual_dom$VirtualDom$style;
@@ -5158,40 +5161,83 @@ var author$project$Example$viewControls = function (model) {
 				A2(elm$html$Html$Attributes$style, 'margin', '1rem auto'),
 				A2(elm$html$Html$Attributes$style, 'padding', '1rem 0'),
 				A2(elm$html$Html$Attributes$style, 'display', 'flex'),
-				A2(elm$html$Html$Attributes$style, 'align-items', 'center'),
-				A2(elm$html$Html$Attributes$style, 'justify-content', 'center')
+				A2(elm$html$Html$Attributes$style, 'justify-content', 'center'),
+				A2(elm$html$Html$Attributes$style, 'font-family', 'Helvetica, Arial, sans-serif')
 			]),
 		_List_fromArray(
 			[
 				A2(
-				elm$html$Html$input,
-				_List_fromArray(
-					[
-						elm$html$Html$Events$onInput(author$project$Example$OnBaseInput),
-						elm$html$Html$Attributes$value(model.base),
-						A2(elm$html$Html$Attributes$style, 'padding', '.25rem'),
-						A2(elm$html$Html$Attributes$style, 'width', '5rem'),
-						A2(elm$html$Html$Attributes$style, 'font-size', '0.875rem'),
-						A2(elm$html$Html$Attributes$style, 'margin-right', '1rem')
-					]),
-				_List_Nil),
-				A2(
-				elm$html$Html$select,
+				elm$html$Html$div,
+				_List_Nil,
 				_List_fromArray(
 					[
 						A2(
-						elm$html$Html$Events$on,
-						'change',
+						elm$html$Html$label,
+						_List_fromArray(
+							[
+								A2(elm$html$Html$Attributes$style, 'display', 'block'),
+								A2(elm$html$Html$Attributes$style, 'margin-bottom', '.5rem')
+							]),
+						_List_fromArray(
+							[
+								elm$html$Html$text('Base(s)')
+							])),
 						A2(
-							elm$json$Json$Decode$map,
-							author$project$Example$SelectInterval,
-							A2(elm$json$Json$Decode$map, author$project$Example$intervalFromValue, elm$html$Html$Events$targetValue)))
-					]),
+						elm$html$Html$input,
+						_List_fromArray(
+							[
+								elm$html$Html$Events$onInput(author$project$Example$OnBaseInput),
+								elm$html$Html$Attributes$value(model.base),
+								A2(elm$html$Html$Attributes$style, 'padding', '.25rem'),
+								A2(elm$html$Html$Attributes$style, 'width', '5rem'),
+								A2(elm$html$Html$Attributes$style, 'font-size', '0.875rem'),
+								A2(elm$html$Html$Attributes$style, 'margin-right', '1rem')
+							]),
+						_List_Nil)
+					])),
 				A2(
-					elm$core$List$map,
-					author$project$Example$viewIntervalOption(model.interval),
-					author$project$Example$intervalList))
+				elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$label,
+						_List_fromArray(
+							[
+								A2(elm$html$Html$Attributes$style, 'display', 'block'),
+								A2(elm$html$Html$Attributes$style, 'margin-bottom', '.5rem')
+							]),
+						_List_fromArray(
+							[
+								elm$html$Html$text('Interval')
+							])),
+						A2(
+						elm$html$Html$select,
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$Events$on,
+								'change',
+								A2(
+									elm$json$Json$Decode$map,
+									author$project$Example$SelectInterval,
+									A2(elm$json$Json$Decode$map, author$project$Example$intervalFromValue, elm$html$Html$Events$targetValue)))
+							]),
+						A2(
+							elm$core$List$map,
+							author$project$Example$viewIntervalOption(model.interval),
+							author$project$Example$intervalList))
+					]))
 			]));
+};
+var author$project$Example$H1 = function (a) {
+	return {$: 'H1', a: a};
+};
+var author$project$Example$H2 = function (a) {
+	return {$: 'H2', a: a};
+};
+var author$project$Example$P = function (a) {
+	return {$: 'P', a: a};
 };
 var author$project$Example$body = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nunc nisi, iaculis nec placerat sed, fermentum sit amet ante. Vivamus facilisis ultricies neque, eu imperdiet est fermentum at. Sed vitae enim eu ante dignissim tincidunt elementum vitae libero. Vestibulum feugiat dolor risus, at imperdiet eros dictum vitae. Pellentesque ut tellus sit amet mauris efficitur consequat. Integer vitae enim vel sem venenatis pretium et ut augue. Ut nec cursus libero, vel pellentesque nunc.';
 var elm$core$String$fromFloat = _String_fromNumber;
@@ -5439,6 +5485,50 @@ var author$project$Example$viewScaleList = F2(
 			},
 			A2(elm$core$List$range, -5, length));
 	});
+var author$project$Example$OnScaleIndexChange = function (a) {
+	return {$: 'OnScaleIndexChange', a: a};
+};
+var elm$core$String$toInt = _String_toInt;
+var elm$json$Json$Decode$fail = _Json_fail;
+var author$project$Example$scaleIndexFromValue = F2(
+	function (scaleIndex, value) {
+		var _n0 = elm$core$String$toInt(value);
+		if (_n0.$ === 'Nothing') {
+			return elm$json$Json$Decode$fail('Not an int');
+		} else {
+			var _int = _n0.a;
+			return elm$json$Json$Decode$succeed(
+				author$project$Example$OnScaleIndexChange(
+					scaleIndex(_int)));
+		}
+	});
+var elm$html$Html$Attributes$type_ = elm$html$Html$Attributes$stringProperty('type');
+var elm$json$Json$Decode$andThen = _Json_andThen;
+var author$project$Example$viewScalePicker = F2(
+	function (scaleIndex, index) {
+		return A2(
+			elm$html$Html$input,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$value(
+					elm$core$String$fromInt(index)),
+					elm$html$Html$Attributes$type_('number'),
+					A2(elm$html$Html$Attributes$style, 'width', '2rem'),
+					A2(elm$html$Html$Attributes$style, 'padding', '.25rem'),
+					A2(elm$html$Html$Attributes$style, 'font-size', '0.875rem'),
+					A2(elm$html$Html$Attributes$style, 'position', 'absolute'),
+					A2(elm$html$Html$Attributes$style, 'left', '-4rem'),
+					A2(elm$html$Html$Attributes$style, 'top', '0'),
+					A2(
+					elm$html$Html$Events$on,
+					'change',
+					A2(
+						elm$json$Json$Decode$andThen,
+						author$project$Example$scaleIndexFromValue(scaleIndex),
+						elm$html$Html$Events$targetValue))
+				]),
+			_List_Nil);
+	});
 var elm$html$Html$li = _VirtualDom_node('li');
 var author$project$Example$viewScaleValue = function (_n0) {
 	var index = _n0.a;
@@ -5452,120 +5542,153 @@ var author$project$Example$viewScaleValue = function (_n0) {
 				'Index ' + (elm$core$String$fromInt(index) + (' : ' + size)))
 			]));
 };
+var elm$html$Html$a = _VirtualDom_node('a');
+var elm$html$Html$br = _VirtualDom_node('br');
 var elm$html$Html$h1 = _VirtualDom_node('h1');
 var elm$html$Html$h2 = _VirtualDom_node('h2');
 var elm$html$Html$h3 = _VirtualDom_node('h3');
 var elm$html$Html$p = _VirtualDom_node('p');
 var elm$html$Html$ul = _VirtualDom_node('ul');
-var author$project$Example$viewText = function (config) {
+var elm$html$Html$Attributes$href = function (url) {
 	return A2(
-		elm$html$Html$div,
-		_List_fromArray(
-			[
-				A2(elm$html$Html$Attributes$style, 'background-color', '#f0f0f0'),
-				A2(elm$html$Html$Attributes$style, 'font-family', 'Helvetica, Arial, sans-serif'),
-				A2(elm$html$Html$Attributes$style, 'width', '100%'),
-				A2(elm$html$Html$Attributes$style, 'box-shadow', '8px 8px 0 0 #ccc'),
-				A2(elm$html$Html$Attributes$style, 'max-width', '800px'),
-				A2(elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
-				A2(
-				elm$html$Html$Attributes$style,
-				'margin',
-				A2(author$project$Example$ms, config, 1) + ' auto'),
-				A2(
-				elm$html$Html$Attributes$style,
-				'padding',
-				A2(author$project$Example$ms, config, 4)),
-				A2(
-				elm$html$Html$Attributes$style,
-				'line-height',
-				A2(author$project$Example$ms, config, 3))
-			]),
-		_List_fromArray(
-			[
-				A2(
-				elm$html$Html$h1,
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$Attributes$style,
-						'font-size',
-						A2(author$project$Example$ms, config, 4)),
-						A2(
-						elm$html$Html$Attributes$style,
-						'line-height',
-						A2(author$project$Example$ms, config, 0))
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(author$project$Example$title)
-					])),
-				A2(
-				elm$html$Html$h2,
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$Attributes$style,
-						'font-size',
-						A2(author$project$Example$ms, config, 3)),
-						A2(
-						elm$html$Html$Attributes$style,
-						'line-height',
-						A2(author$project$Example$ms, config, 1))
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(author$project$Example$subtitle)
-					])),
-				A2(
-				elm$html$Html$p,
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$Attributes$style,
-						'font-size',
-						A2(author$project$Example$ms, config, 1)),
-						A2(
-						elm$html$Html$Attributes$style,
-						'line-height',
-						A2(author$project$Example$ms, config, 1))
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(author$project$Example$body)
-					])),
-				A2(
-				elm$html$Html$h3,
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$Attributes$style,
-						'font-size',
-						A2(author$project$Example$ms, config, 2)),
-						A2(
-						elm$html$Html$Attributes$style,
-						'line-height',
-						A2(author$project$Example$ms, config, 1))
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('A sample of values being generated')
-					])),
-				A2(
-				elm$html$Html$ul,
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$Attributes$style,
-						'font-size',
-						A2(author$project$Example$ms, config, 1))
-					]),
-				A2(
-					elm$core$List$map,
-					author$project$Example$viewScaleValue,
-					A2(author$project$Example$viewScaleList, config, 20)))
-			]));
+		elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
 };
+var author$project$Example$viewText = F2(
+	function (model, config) {
+		return A2(
+			elm$html$Html$div,
+			_List_fromArray(
+				[
+					A2(elm$html$Html$Attributes$style, 'background-color', '#f0f0f0'),
+					A2(elm$html$Html$Attributes$style, 'font-family', 'Helvetica, Arial, sans-serif'),
+					A2(elm$html$Html$Attributes$style, 'width', '100%'),
+					A2(elm$html$Html$Attributes$style, 'box-shadow', '8px 8px 0 0 #ccc'),
+					A2(elm$html$Html$Attributes$style, 'max-width', '800px'),
+					A2(elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
+					A2(
+					elm$html$Html$Attributes$style,
+					'margin',
+					A2(author$project$Example$ms, config, 1) + ' auto'),
+					A2(elm$html$Html$Attributes$style, 'padding', '2rem 4rem 2rem 6rem'),
+					A2(
+					elm$html$Html$Attributes$style,
+					'line-height',
+					A2(author$project$Example$ms, config, 3))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$html$Html$h1,
+					_List_fromArray(
+						[
+							A2(
+							elm$html$Html$Attributes$style,
+							'font-size',
+							A2(author$project$Example$ms, config, model.h1)),
+							A2(
+							elm$html$Html$Attributes$style,
+							'line-height',
+							A2(author$project$Example$ms, config, 0)),
+							A2(elm$html$Html$Attributes$style, 'position', 'relative')
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text(author$project$Example$title),
+							A2(author$project$Example$viewScalePicker, author$project$Example$H1, model.h1)
+						])),
+					A2(
+					elm$html$Html$h2,
+					_List_fromArray(
+						[
+							A2(
+							elm$html$Html$Attributes$style,
+							'font-size',
+							A2(author$project$Example$ms, config, model.h2)),
+							A2(
+							elm$html$Html$Attributes$style,
+							'line-height',
+							A2(author$project$Example$ms, config, 1)),
+							A2(elm$html$Html$Attributes$style, 'position', 'relative')
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text(author$project$Example$subtitle),
+							A2(author$project$Example$viewScalePicker, author$project$Example$H2, model.h2)
+						])),
+					A2(
+					elm$html$Html$p,
+					_List_fromArray(
+						[
+							A2(
+							elm$html$Html$Attributes$style,
+							'font-size',
+							A2(author$project$Example$ms, config, model.p)),
+							A2(
+							elm$html$Html$Attributes$style,
+							'line-height',
+							A2(author$project$Example$ms, config, 1)),
+							A2(elm$html$Html$Attributes$style, 'position', 'relative')
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text(author$project$Example$body),
+							A2(author$project$Example$viewScalePicker, author$project$Example$P, model.p)
+						])),
+					A2(
+					elm$html$Html$h3,
+					_List_fromArray(
+						[
+							A2(
+							elm$html$Html$Attributes$style,
+							'font-size',
+							A2(author$project$Example$ms, config, 2)),
+							A2(
+							elm$html$Html$Attributes$style,
+							'line-height',
+							A2(author$project$Example$ms, config, 1))
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text('Values being generated')
+						])),
+					A2(
+					elm$html$Html$ul,
+					_List_fromArray(
+						[
+							A2(
+							elm$html$Html$Attributes$style,
+							'font-size',
+							A2(author$project$Example$ms, config, 1))
+						]),
+					A2(
+						elm$core$List$map,
+						author$project$Example$viewScaleValue,
+						A2(author$project$Example$viewScaleList, config, 20))),
+					A2(
+					elm$html$Html$a,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$href('https://package.elm-lang.org/packages/rl-king/elm-modular-scale/latest')
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text('Package docs')
+						])),
+					A2(elm$html$Html$br, _List_Nil, _List_Nil),
+					A2(
+					elm$html$Html$a,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$href('https://github.com/rl-king/elm-modular-scale')
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text('Package repo')
+						]))
+				]));
+	});
 var elm$core$List$maybeCons = F3(
 	function (f, mx, xs) {
 		var _n0 = f(mx);
@@ -5612,7 +5735,7 @@ var author$project$Example$viewBody = function (model) {
 		_List_fromArray(
 			[
 				author$project$Example$viewControls(model),
-				author$project$Example$viewText(config)
+				A2(author$project$Example$viewText, model, config)
 			]));
 };
 var author$project$Example$view = function (model) {
@@ -5743,7 +5866,6 @@ var elm$core$String$left = F2(
 		return (n < 1) ? '' : A3(elm$core$String$slice, 0, n, string);
 	});
 var elm$core$String$contains = _String_contains;
-var elm$core$String$toInt = _String_toInt;
 var elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
 		return {fragment: fragment, host: host, path: path, port_: port_, protocol: protocol, query: query};

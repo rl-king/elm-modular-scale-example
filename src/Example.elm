@@ -29,12 +29,22 @@ main =
 type alias Model =
     { base : String
     , interval : Interval
+    , h1 : Int
+    , h2 : Int
+    , p : Int
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model "1, 1.2" PerfectFifth, Cmd.none )
+    ( { base = "1, 1.25"
+      , interval = PerfectFourth
+      , h1 = 5
+      , h2 = 3
+      , p = 1
+      }
+    , Cmd.none
+    )
 
 
 
@@ -44,6 +54,7 @@ init _ =
 type Msg
     = OnBaseInput String
     | SelectInterval Interval
+    | OnScaleIndexChange ScaleIndex
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -54,6 +65,15 @@ update msg model =
 
         SelectInterval interval ->
             ( { model | interval = interval }, Cmd.none )
+
+        OnScaleIndexChange (H1 input) ->
+            ( { model | h1 = input }, Cmd.none )
+
+        OnScaleIndexChange (H2 input) ->
+            ( { model | h2 = input }, Cmd.none )
+
+        OnScaleIndexChange (P input) ->
+            ( { model | p = input }, Cmd.none )
 
 
 view : Model -> Browser.Document Msg
@@ -76,7 +96,7 @@ viewBody model =
     in
     main_ []
         [ viewControls model
-        , viewText config
+        , viewText model config
         ]
 
 
@@ -89,24 +109,38 @@ viewControls model =
         , style "margin" "1rem auto"
         , style "padding" "1rem 0"
         , style "display" "flex"
-        , style "align-items" "center"
         , style "justify-content" "center"
+        , style "font-family" "Helvetica, Arial, sans-serif"
         ]
-        [ input
-            [ onInput OnBaseInput
-            , value model.base
-            , style "padding" ".25rem"
-            , style "width" "5rem"
-            , style "font-size" "0.875rem"
-            , style "margin-right" "1rem"
+        [ div []
+            [ label
+                [ style "display" "block"
+                , style "margin-bottom" ".5rem"
+                ]
+                [ text "Base(s)" ]
+            , input
+                [ onInput OnBaseInput
+                , value model.base
+                , style "padding" ".25rem"
+                , style "width" "5rem"
+                , style "font-size" "0.875rem"
+                , style "margin-right" "1rem"
+                ]
+                []
             ]
-            []
-        , select
-            [ on "change" <|
-                Decode.map SelectInterval <|
-                    Decode.map intervalFromValue targetValue
+        , div []
+            [ label
+                [ style "display" "block"
+                , style "margin-bottom" ".5rem"
+                ]
+                [ text "Interval" ]
+            , select
+                [ on "change" <|
+                    Decode.map SelectInterval <|
+                        Decode.map intervalFromValue targetValue
+                ]
+                (List.map (viewIntervalOption model.interval) intervalList)
             ]
-            (List.map (viewIntervalOption model.interval) intervalList)
         ]
 
 
@@ -119,8 +153,8 @@ viewIntervalOption current interval =
         [ text (intervalToString interval) ]
 
 
-viewText : ModularScale.Config -> Html Msg
-viewText config =
+viewText : Model -> ModularScale.Config -> Html Msg
+viewText model config =
     div
         [ style "background-color" "#f0f0f0"
         , style "font-family" "Helvetica, Arial, sans-serif"
@@ -129,33 +163,74 @@ viewText config =
         , style "max-width" "800px"
         , style "box-sizing" "border-box"
         , style "margin" (ms config 1 ++ " auto")
-        , style "padding" (ms config 4)
+        , style "padding" "2rem 4rem 2rem 6rem"
         , style "line-height" (ms config 3)
         ]
         [ h1
-            [ style "font-size" (ms config 4)
+            [ style "font-size" (ms config model.h1)
             , style "line-height" (ms config 0)
+            , style "position" "relative"
             ]
-            [ text title ]
+            [ text title, viewScalePicker H1 model.h1 ]
         , h2
-            [ style "font-size" (ms config 3)
+            [ style "font-size" (ms config model.h2)
             , style "line-height" (ms config 1)
+            , style "position" "relative"
             ]
-            [ text subtitle ]
+            [ text subtitle, viewScalePicker H2 model.h2 ]
         , p
-            [ style "font-size" (ms config 1)
+            [ style "font-size" (ms config model.p)
             , style "line-height" (ms config 1)
+            , style "position" "relative"
             ]
-            [ text body ]
+            [ text body, viewScalePicker P model.p ]
         , h3
             [ style "font-size" (ms config 2)
             , style "line-height" (ms config 1)
             ]
-            [ text "A sample of values being generated" ]
+            [ text "Values being generated" ]
         , ul [ style "font-size" (ms config 1) ] <|
             List.map viewScaleValue <|
                 viewScaleList config 20
+        , a [ href "https://package.elm-lang.org/packages/rl-king/elm-modular-scale/latest" ]
+            [ text "Package docs" ]
+        , br [] []
+        , a [ href "https://github.com/rl-king/elm-modular-scale" ]
+            [ text "Package repo" ]
         ]
+
+
+type ScaleIndex
+    = H1 Int
+    | H2 Int
+    | P Int
+
+
+viewScalePicker : (Int -> ScaleIndex) -> Int -> Html Msg
+viewScalePicker scaleIndex index =
+    input
+        [ value (String.fromInt index)
+        , type_ "number"
+        , style "width" "2rem"
+        , style "padding" ".25rem"
+        , style "font-size" "0.875rem"
+        , style "position" "absolute"
+        , style "left" "-4rem"
+        , style "top" "0"
+        , on "change" <|
+            Decode.andThen (scaleIndexFromValue scaleIndex) targetValue
+        ]
+        []
+
+
+scaleIndexFromValue : (Int -> ScaleIndex) -> String -> Decode.Decoder Msg
+scaleIndexFromValue scaleIndex value =
+    case String.toInt value of
+        Nothing ->
+            Decode.fail "Not an int"
+
+        Just int ->
+            Decode.succeed (OnScaleIndexChange (scaleIndex int))
 
 
 viewScaleList : ModularScale.Config -> Int -> List ( Int, String )
@@ -215,7 +290,6 @@ intervalList =
     , MajorEleventh -- 2.667
     , MajorTwelfth -- 3
     , DoubleOctave -- 4
-    , Ratio 0 -- custom
     ]
 
 
